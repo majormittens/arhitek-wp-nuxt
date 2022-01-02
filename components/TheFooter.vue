@@ -36,11 +36,7 @@
         <!-- logo - start -->
         <div class="lg:-mt-2 mb-4">
           <a href="/" class="inline-flex items-center text-black-800 text-xl md:text-2xl font-bold gap-2" aria-label="logo">
-            <svg width="95" height="94" viewBox="0 0 95 94" class="w-5 h-auto text-indigo-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M96 0V47L48 94H0V47L48 0H96Z" />
-            </svg>
-
-            Wabi Sabi
+            1006
           </a>
         </div>
         <!-- logo - end -->
@@ -173,7 +169,7 @@
       <!-- nav - end -->
     </div>
 
-    <div class="text-gray-400 text-sm text-center border-t py-8">© 2021 - Present Wabi Sabi. All rights reserved.</div>
+    <div class="text-gray-400 text-sm text-center border-t py-8">© 2021 - Present 1006. All rights reserved.</div>
   </footer>
 </div>
 </template>
