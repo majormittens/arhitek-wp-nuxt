@@ -4,8 +4,6 @@
 
 <script>
 import ArticleList from '~/components/ArticleList';
-import TheHero from '~/components/TheHero';
-import TheSidebar from '~/components/TheSidebar';
 
 export default {
   async asyncData({ app, store, params }) {
@@ -17,8 +15,6 @@ export default {
 
   components: {
     ArticleList,
-    TheHero,
-    TheSidebar,
   },
 
     mixins: {
