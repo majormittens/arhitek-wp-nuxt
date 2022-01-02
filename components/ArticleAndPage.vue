@@ -1,10 +1,10 @@
 <template>
   <article class="single">
     <FeaturedImage
-      v-if="getFeaturedImage(data, 'large')"
+      v-if="getFeaturedImage(data, 'full')"
       :expanded="expanded"
       :article="data"
-      :featured-image="getFeaturedImage(data, 'large')"
+      :featured-image="getFeaturedImage(data, 'full')"
     />
     <transition name="slide-fade">
       <div
@@ -40,13 +40,15 @@
         <div class="content" v-html="data.content.rendered"></div>
       </div>
     </transition>
-    <div v-if="colorAccentStyles" v-html="colorAccentStyles"></div>
   </article>
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant';
+import lightGallery from 'lightgallery';
 
+// Plugins
+import lgThumbnail from 'lightgallery/plugins/thumbnail'
+import lgZoom from 'lightgallery/plugins/zoom'
 import FeaturedImage from '~/components/FeaturedImage.vue';
 
 export default {
@@ -66,71 +68,26 @@ export default {
 
   data() {
     return {
-      expanded: false,
-      colorAccentStyles: null
+      expanded: false
     };
   },
 
   methods: {
     initGallery() {
-      let galleries = document.querySelectorAll('.content > .gallery');
-
+      let galleries = document.querySelectorAll('.content > .wp-block-gallery');
       if (galleries.length) {
-        if (process.browser) {
-          require('lightgallery.js');
-          require('lg-zoom.js');
-          require('lg-thumbnail.js');
-        }
-
         for (let i = 0; i < galleries.length; i++) {
           lightGallery(galleries[i], {
             download: false,
-            selector: 'a'
+            selector: 'img'
           });
         }
       }
     },
-
-    getColorAccentStyles(article) {
-      return new Promise(function(resolve, reject) {
-        const image =
-          article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
-
-        Vibrant.from(image).getPalette((err, palette) => {
-          if (!err && palette.DarkMuted) {
-            const { r, g, b } = palette.DarkMuted;
-
-            resolve(`
-              <style>
-                html,
-                .featured-image .image-height {
-                  background: rgb(${r},${g},${b}) !important
-                }
-                main a {
-                  color: rgb(${r},${g},${b}) !important
-                }
-                main a:hover {
-                  color: rgb(${r},${g},${b}) !important
-                }
-                main a::after {
-                  background: rgb(${r},${g},${b}) !important
-                }
-              </style>
-            `);
-          } else {
-            reject(err);
-          }
-        });
-      });
-    }
   },
 
   mounted() {
     this.initGallery();
-
-    if (this.getFeaturedImage(this.data, 'thumbnail')) {
-      this.getColorAccentStyles(this.data).then(styles => (this.colorAccentStyles = styles));
-    }
   }
 };
 </script>
@@ -249,7 +206,7 @@ article {
 </style>
 
 <style lang="scss">
-@import '../node_modules/lightgallery.js/dist/css/lightgallery.css';
+@import '../node_modules/lightgallery/css/lightgallery.css';
 @import '~/assets/css/vars.scss';
 
 .lg-backdrop {
@@ -382,9 +339,15 @@ article {
       }
     }
 
+    .blocks-gallery-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
     img {
       height: auto;
       max-width: 100%;
+      min-width: 100px;
     }
 
     > *:first-child {

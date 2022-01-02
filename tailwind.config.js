@@ -10,6 +10,5 @@ module.exports = {
     'pages/**/*.vue'
   ],
   plugins: [
-    // require('daisyui'), //is this still needed?
   ]
 };

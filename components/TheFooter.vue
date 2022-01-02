@@ -40,7 +40,7 @@
               <path d="M96 0V47L48 94H0V47L48 0H96Z" />
             </svg>
 
-            Arhitek
+            Wabi Sabi
           </a>
         </div>
         <!-- logo - end -->
@@ -173,7 +173,7 @@
       <!-- nav - end -->
     </div>
 
-    <div class="text-gray-400 text-sm text-center border-t py-8">© 2021 - Present Arhitek. All rights reserved.</div>
+    <div class="text-gray-400 text-sm text-center border-t py-8">© 2021 - Present Wabi Sabi. All rights reserved.</div>
   </footer>
 </div>
 </template>
