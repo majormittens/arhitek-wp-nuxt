@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~/assets/css/vars.scss';
 
 article {
@@ -161,6 +161,10 @@ article {
                 padding: 0 0.5rem;
             }
         }
+    }
+
+    .blocks-gallery-item {
+        cursor: pointer !important;
     }
 }
 </style>

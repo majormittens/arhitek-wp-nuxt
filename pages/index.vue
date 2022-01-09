@@ -10,6 +10,12 @@ export default {
     const { data } = await app.$axios.get(
       `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&_embed`
     );
+    if (!store.state.topics) {
+      let topics = await app.$axios.get(
+        `${process.env.WORDPRESS_API_URL}/wp/v2/categories?per_page=1000000`
+      );
+      store.commit('setTopics', topics.data);
+    }
     return { articles: data };
   },
 

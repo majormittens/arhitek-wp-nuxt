@@ -1,5 +1,5 @@
 <template>
-    <img style="height:60px; width: 100%;" :src="logo"/>
+    <img style="height: 70px" :src="logo"/>
 </template>
 
 <script>
