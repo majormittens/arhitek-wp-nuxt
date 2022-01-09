@@ -5,23 +5,20 @@
       <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">{{title}}</h2>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-8">
-      <!-- product - start -->
-      <div v-for="article in articles" :key="article.id">
-            <nuxt-link :to="`/${article.slug}`" v-if="getFeaturedImage(article, 'medium')" class="group h-80 block bg-gray-100 rounded-lg overflow-hidden relative mb-2 lg:mb-3">
-
-          <img v-if="article._embedded['wp:featuredmedia']" :alt="article._embedded['wp:featuredmedia'][0].alt_text" v-lazy="
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6 xl:gap-8">
+      <!-- article - start -->
+      <nuxt-link v-for="article in articles" :key="article.id" :to="`/${article.slug}`" class="group h-32 md:h-32 lg:h-48 xl:h-64 flex justify-center items-center flex-1 flex-shrink-0 overflow-hidden relative">
+        <img v-if="article._embedded['wp:featuredmedia']" :alt="article._embedded['wp:featuredmedia'][0].alt_text" v-lazy="
                 article._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
-              " class="w-full h-full object-contain object-center group-hover:scale-110 transition duration-200" />
-            </nuxt-link>
+              " class="w-full h-full object-contain object-center absolute inset-0 transform group-hover:scale-110 transition duration-200 group-hover:opacity-10" />
 
-        <div>
-            <nuxt-link :to="`/${article.slug}`" v-if="getFeaturedImage(article, 'medium')" class="text-gray-500 hover:gray-800 lg:text-lg transition duration-100 mb-1">
-            {{article.title.rendered}}
-            </nuxt-link>
+        <!-- <div class="bg-gradient-to-t from-gray-800 md:via-transparent to-transparent absolute inset-0 pointer-events-none"></div> -->
+
+        <div class="flex flex-col items-center relative group-hover:opacity-100 opacity-0">
+          <span class="block text-gray-800 text-md">{{article.title.rendered}}</span>
         </div>
-      </div>
-      <!-- product - end -->
+      </nuxt-link>
+      <!-- article - end -->
     </div>
   </div>
 </div>

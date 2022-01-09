@@ -1,46 +1,14 @@
 <template>
-  <article class="single">
-    <FeaturedImage
-      v-if="getFeaturedImage(data, 'full')"
-      :expanded="expanded"
-      :article="data"
-      :featured-image="getFeaturedImage(data, 'full')"
-    />
+<article class="single">
     <transition name="slide-fade">
-      <div
-        class="narrow"
-        :class="{ expanded: expanded, 'no-featured-image': !getFeaturedImage(data, 'large') }"
-      >
-        <button
-          class="expand-featured-image"
-          title="Show full image"
-          @click.prevent="expanded = !expanded"
-          :class="{ expanded: expanded }"
-          v-if="getFeaturedImage(data, 'large')"
-        >
-          <svg
-            fill="#000000"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
-            <path d="M0 0h24v24H0z" fill="none" />
-          </svg>
-        </button>
-        <div class="meta">
-          <h1 class="title" v-html="data.title.rendered"></h1>
-          <div class="details">
-            <span>{{ longTimestamp(data.date) }}</span>
-            <span class="separator">|</span>
-            <span>{{ data._embedded.author[0].name }}</span>
-          </div>
+        <div class="narrow no-featured-image">
+            <div class="meta">
+                <h1 class="title" v-html="data.title.rendered"></h1>
+            </div>
+            <div class="content" v-html="data.content.rendered"></div>
         </div>
-        <div class="content" v-html="data.content.rendered"></div>
-      </div>
     </transition>
-  </article>
+</article>
 </template>
 
 <script>
@@ -52,43 +20,35 @@ import lgZoom from 'lightgallery/plugins/zoom'
 import FeaturedImage from '~/components/FeaturedImage.vue';
 
 export default {
-  props: {
-    data: Object,
-    type: String
-  },
-
-  mixins: {
-    getFeaturedImage: Function,
-    longTimestamp: Function
-  },
-
-  components: {
-    FeaturedImage,
-  },
-
-  data() {
-    return {
-      expanded: false
-    };
-  },
-
-  methods: {
-    initGallery() {
-      let galleries = document.querySelectorAll('.content > .wp-block-gallery');
-      if (galleries.length) {
-        for (let i = 0; i < galleries.length; i++) {
-          lightGallery(galleries[i], {
-            download: false,
-            selector: 'img'
-          });
-        }
-      }
+    props: {
+        data: Object,
+        type: String
     },
-  },
 
-  mounted() {
-    this.initGallery();
-  }
+    mixins: {
+        getFeaturedImage: Function,
+        longTimestamp: Function
+    },
+
+    components: {},
+
+    methods: {
+        initGallery() {
+            let galleries = document.querySelectorAll('.content > .wp-block-gallery');
+            if (galleries.length) {
+                for (let i = 0; i < galleries.length; i++) {
+                    lightGallery(galleries[i], {
+                        download: false,
+                        selector: 'img'
+                    });
+                }
+            }
+        },
+    },
+
+    mounted() {
+        this.initGallery();
+    }
 };
 </script>
 
@@ -96,112 +56,112 @@ export default {
 @import '~/assets/css/vars.scss';
 
 article {
-  background-color: #efefef;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: 100%;
-  color: black;
-
-  &.page-enter-active .narrow {
-    transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99), opacity 0.75s ease-out;
-  }
-
-  &.page-enter .narrow,
-  .page-leave-to .narrow {
-    transform: translateY(16px);
-  }
-
-  .narrow {
     background-color: #efefef;
-    margin: 0 auto;
-    max-width: 842px;
-    min-height: calc(100vh - 80px - 96px - 200px);
-    padding: 0 96px 96px 96px;
+    display: flex;
+    flex-direction: column;
     position: relative;
-    transition: min-height 1s, transform 1s;
-    transform: translateY(0);
-    width: 100%;
+    height: 100%;
+    color: black;
 
-    &.expanded {
-      min-height: 0;
+    &.page-enter-active .narrow {
+        transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99), opacity 0.75s ease-out;
     }
 
-    @media (max-width: 900px) {
-      margin-top: 0 !important;
-      max-width: 100%;
-      min-height: initial;
+    &.page-enter .narrow,
+    .page-leave-to .narrow {
+        transform: translateY(16px);
     }
 
-    @media (max-width: 700px) {
-      max-width: none;
-      padding: 0 16px 16px 16px;
-    }
+    .narrow {
+        background-color: #efefef;
+        margin: 0 auto;
+        max-width: 842px;
+        min-height: calc(100vh - 80px - 96px - 200px);
+        padding: 0 96px 96px 96px;
+        position: relative;
+        transition: min-height 1s, transform 1s;
+        transform: translateY(0);
+        width: 100%;
 
-    .expand-featured-image {
-      background-color: transparent;
-      border: 0;
-      cursor: pointer;
-      outline: 0;
-      position: absolute;
-      right: 32px;
-      top: 32px;
-      transition: 1s;
-      z-index: 1;
-
-      @media (max-width: 900px) {
-        display: none;
-      }
-
-      &:hover {
-        svg {
-          opacity: 1;
+        &.expanded {
+            min-height: 0;
         }
-      }
 
-      &.expanded {
-        transform: rotate(180deg);
-      }
+        @media (max-width: 900px) {
+            margin-top: 0 !important;
+            max-width: 100%;
+            min-height: initial;
+        }
 
-      svg {
-        fill: $primary;
-        height: 24px;
-        opacity: 0.7;
-        transition: 0.1s;
-        width: 24px;
-      }
+        @media (max-width: 700px) {
+            max-width: none;
+            padding: 0 16px 16px 16px;
+        }
+
+        .expand-featured-image {
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+            outline: 0;
+            position: absolute;
+            right: 32px;
+            top: 32px;
+            transition: 1s;
+            z-index: 1;
+
+            @media (max-width: 900px) {
+                display: none;
+            }
+
+            &:hover {
+                svg {
+                    opacity: 1;
+                }
+            }
+
+            &.expanded {
+                transform: rotate(180deg);
+            }
+
+            svg {
+                fill: $primary;
+                height: 24px;
+                opacity: 0.7;
+                transition: 0.1s;
+                width: 24px;
+            }
+        }
+
+        &.no-featured-image {
+            margin: 0 auto;
+        }
     }
 
-    &.no-featured-image {
-      margin: 0 auto;
+    .meta {
+        .title {
+            font-size: 40px;
+            line-height: 1;
+            margin-bottom: 16px;
+            margin-top: 0;
+            padding-top: 64px;
+
+            @media (max-width: 700px) {
+                padding-top: 48px;
+            }
+
+            @media (max-width: 500px) {
+                padding-top: 32px;
+            }
+        }
+
+        .details {
+            font-size: 0.8rem;
+
+            .separator {
+                padding: 0 0.5rem;
+            }
+        }
     }
-  }
-
-  .meta {
-    .title {
-      font-size: 40px;
-      line-height: 1;
-      margin-bottom: 16px;
-      margin-top: 0;
-      padding-top: 64px;
-
-      @media (max-width: 700px) {
-        padding-top: 48px;
-      }
-
-      @media (max-width: 500px) {
-        padding-top: 32px;
-      }
-    }
-
-    .details {
-      font-size: 0.8rem;
-
-      .separator {
-        padding: 0 0.5rem;
-      }
-    }
-  }
 }
 </style>
 
@@ -210,11 +170,11 @@ article {
 @import '~/assets/css/vars.scss';
 
 .lg-backdrop {
-  background-color: #111;
+    background-color: #111;
 }
 
 #lg-counter {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .lg-toolbar,
@@ -222,29 +182,29 @@ article {
 .lg-actions .lg-prev,
 .lg-outer .lg-thumb-outer,
 .lg-outer .lg-toggle-thumb {
-  background-color: #1a1a1a;
+    background-color: #1a1a1a;
 }
 
 #lg-actual-size:after {
-  content: '\E311';
+    content: '\E311';
 }
 
 #lg-zoom-in,
 #lg-zoom-out {
-  display: none;
+    display: none;
 }
 
 .lg-outer .lg-thumb-item {
-  border-radius: 2px;
+    border-radius: 2px;
 }
 
 .lg-outer .lg-thumb-item {
-  border-color: #aaa;
+    border-color: #aaa;
 }
 
 .lg-outer .lg-thumb-item.active,
 .lg-outer .lg-thumb-item:hover {
-  border-color: #fff;
+    border-color: #fff;
 }
 </style>
 
@@ -252,107 +212,107 @@ article {
 @import '~/assets/css/vars.scss';
 
 .single {
-  .content {
-    border-top: 1px dotted lighten($primary, 20%);
-    padding-top: 32px;
-    margin-top: 32px;
+    .content {
+        border-top: 1px dotted lighten($primary, 20%);
+        padding-top: 32px;
+        margin-top: 32px;
 
-    .alignnone,
-    .size-full,
-    .wp-caption {
-      background-color: #fff;
-      padding: 16px;
-      display: block;
-      margin-bottom: 32px;
+        .alignnone,
+        .size-full,
+        .wp-caption {
+            background-color: #fff;
+            padding: 16px;
+            display: block;
+            margin-bottom: 32px;
 
-      img {
-        display: block;
-        padding: 0;
-        margin-bottom: 16px;
-      }
+            img {
+                display: block;
+                padding: 0;
+                margin-bottom: 16px;
+            }
 
-      &.alignnone {
-        max-width: 100%;
-      }
+            &.alignnone {
+                max-width: 100%;
+            }
 
-      &.aligncenter {
-        margin-left: auto;
-        margin-right: auto;
-      }
+            &.aligncenter {
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-      &.alignleft {
-        float: left;
-        margin-right: 32px;
-        width: initial;
-      }
+            &.alignleft {
+                float: left;
+                margin-right: 32px;
+                width: initial;
+            }
 
-      &.alignright {
-        float: right;
-        margin-left: 32px;
-        width: initial;
-      }
-    }
-
-    .wp-caption {
-      p {
-        margin-bottom: 0;
-
-        & + p {
-          margin-top: 16px;
+            &.alignright {
+                float: right;
+                margin-left: 32px;
+                width: initial;
+            }
         }
-      }
-    }
 
-    p {
-      margin-bottom: 32px;
-      margin-top: 0;
-    }
+        .wp-caption {
+            p {
+                margin-bottom: 0;
 
-    a {
-      color: $accent;
-      position: relative;
-
-      &:hover {
-        color: $accent;
-      }
-
-      &::after {
-        background: rgba($accent, 0.5);
-        content: '';
-        height: 1px;
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        top: 100%;
-        transform: translateY(-4px);
-        transition: height 0.1s, opacity 0.1s, transform 0.1s;
-        width: 100%;
-      }
-
-      &:hover,
-      &:focus {
-        &::after {
-          height: 4px;
-          opacity: 1;
-          transform: translateY(0px);
+                &+p {
+                    margin-top: 16px;
+                }
+            }
         }
-      }
-    }
 
-    .blocks-gallery-grid {
-      display: flex;
-      flex-direction: column;
-    }
+        p {
+            margin-bottom: 32px;
+            margin-top: 0;
+        }
 
-    img {
-      height: auto;
-      max-width: 100%;
-      min-width: 100px;
-    }
+        a {
+            color: $accent;
+            position: relative;
 
-    > *:first-child {
-      margin-top: 0;
+            &:hover {
+                color: $accent;
+            }
+
+            &::after {
+                background: rgba($accent, 0.5);
+                content: '';
+                height: 1px;
+                left: 0;
+                opacity: 0;
+                position: absolute;
+                top: 100%;
+                transform: translateY(-4px);
+                transition: height 0.1s, opacity 0.1s, transform 0.1s;
+                width: 100%;
+            }
+
+            &:hover,
+            &:focus {
+                &::after {
+                    height: 4px;
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+        }
+
+        .blocks-gallery-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        img {
+            height: auto;
+            max-width: 100%;
+            min-width: 100px;
+        }
+
+        >*:first-child {
+            margin-top: 0;
+        }
     }
-  }
 }
 </style>

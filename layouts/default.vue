@@ -30,7 +30,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   background-repeat: no-repeat;
   box-sizing: border-box;
-  position: relative;
   transition-timing-function: cubic-bezier(0.11, 0.89, 0.31, 0.99);
 }
 
@@ -70,36 +69,6 @@ html.wf-inactive #blog {
 .page-enter,
 .page-leave-active {
   opacity: 0;
-}
-
-.fancy {
-  cursor: pointer;
-
-  &:hover {
-    color: $accent;
-  }
-
-  &::after {
-    background: rgba($accent, 0.5);
-    content: '';
-    height: 1px;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    top: 100%;
-    transform: translateY(-4px);
-    transition: height 0.1s, opacity 0.1s, transform 0.1s;
-    width: 100%;
-  }
-
-  &:hover,
-  &:focus {
-    &::after {
-      height: 2px;
-      opacity: 1;
-      transform: translateY(0px);
-    }
-  }
 }
 
 pre {
