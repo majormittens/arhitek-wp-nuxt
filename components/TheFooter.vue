@@ -1,6 +1,6 @@
 <template>
 <div class="bg-white pt-4 sm:pt-10 lg:pt-12">
-    <div class="max-w-screen-2xl mx-auto">
+    <div class="max-w-screen-2xl mx-auto" v-if="isNotHomepage">
         <div class="flex flex-col sm:flex-row justify-end items-center bg-gray-100 rounded-lg gap-4 p-4 md:p-8">
             <nuxt-link to="/" class="px-4 py-2 mx-1 text-gray-700 capitalize bg-white rounded-md dark:bg-gray-900 dark:text-gray-600">
                 <div class="flex items-center -mx-1">
@@ -71,6 +71,9 @@ export default {
         },
         year() {
             return new Date().getFullYear();
+        },
+        isNotHomepage() {
+            return this.$route.name !== 'index';
         }
     },
 

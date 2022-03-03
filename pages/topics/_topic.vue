@@ -10,7 +10,7 @@ export default {
   async asyncData({ app, store, params }) {
     if (!store.state.featuredArticles.length) {
       let articles = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_CATEGORY_ID}&_embed`
+        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=1000000&categories=${process.env.FEATURED_CATEGORY_ID}&_embed`
       );
       store.commit('setFeaturedArticles', articles.data);
     }
@@ -25,7 +25,7 @@ export default {
     if (!find(store.state.topicArticles, { slug: params.topic })) {
       let topic = find(store.state.topics, { slug: params.topic });
       let topicArticles = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`
+        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=100000&categories=${topic.id}&_embed`
       );
       store.commit('setTopicArticles', {
         slug: params.topic,

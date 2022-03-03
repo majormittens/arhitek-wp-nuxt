@@ -7,7 +7,7 @@
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6 xl:gap-8">
       <!-- article - start -->
-      <nuxt-link v-for="article in articles" :key="article.id" :to="`/${article.slug}`" class="group h-32 md:h-32 lg:h-48 xl:h-64 flex justify-center items-center flex-1 flex-shrink-0 overflow-hidden relative">
+      <nuxt-link v-for="article in articles" :key="article.id" :to="`/${article.slug}`" class="group h-48 md:h-48 lg:h-48 xl:h-64 flex justify-center items-center flex-1 flex-shrink-0 overflow-hidden relative">
         <img v-if="article._embedded['wp:featuredmedia']" :alt="article._embedded['wp:featuredmedia'][0].alt_text" v-lazy="
                 article._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
               " class="w-full h-full object-contain object-center absolute inset-0 transform group-hover:scale-110 transition duration-200 group-hover:opacity-10" />

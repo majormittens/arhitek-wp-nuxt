@@ -1,5 +1,5 @@
 <template>
-    <img style="height: 70px" :src="logo"/>
+    <img style="height: 70px; min-width: 170px;" :src="logo"/>
 </template>
 
 <script>

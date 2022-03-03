@@ -8,7 +8,7 @@ import ArticleList from '~/components/ArticleList';
 export default {
   async asyncData({ app, store, params }) {
     const { data } = await app.$axios.get(
-      `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&_embed`
+      `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=1000000&_embed`
     );
     if (!store.state.topics) {
       let topics = await app.$axios.get(
