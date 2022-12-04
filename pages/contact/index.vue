@@ -23,7 +23,7 @@
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
             </svg>
 
-            <span class="mt-2">example@example.com</span>
+            <span class="mt-2">office@inspirescu.com</span>
         </a>
     </div>
 
