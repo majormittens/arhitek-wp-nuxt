@@ -9,8 +9,8 @@
     <div class="flex flex-col">
         <div class="px-4 md:px-8">
             <div class="p-1 flex flex-col md:flex-row items-center">
-                <h2 class="text-gray-500 text-xl">practica arhitecturala </h2>
-                <p class="text-gray-700 ml-1"> | contact@domeniu.com | 0234132321</p>
+                <h2 class="text-gray-500 text-xl">practică arhitecturală </h2>
+                <p class="text-gray-700 ml-1"> | office@inspirescu.com | 0799264222</p>
             </div>
         </div>
         <!-- nav - start -->
@@ -51,7 +51,7 @@
                     </li>
                     <li class="">
                         <nuxt-link to="/pages/povestea-incerc-proiect" class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
-                            Viziunea Noastra
+                            Viziunea Noastră
                         </nuxt-link>
                     </li>
                 </ul>
