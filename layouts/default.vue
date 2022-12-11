@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-6 sm:pb-8 lg:pb-12 blog" id="blog">
+  <div class="overflow-hidden pb-6 sm:pb-8 lg:pb-12 blog" id="blog">
     <div class="interface max-w-screen-2xl mx-auto">
       <TheHeader class="mb-8"/>
       <main role="main">
