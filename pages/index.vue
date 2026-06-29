@@ -37,7 +37,7 @@ export default {
 
   head() {
     return {
-      title: `Home | ${this.$store.state.meta.name}`,
+      title: `Holly Serious ${this.$store.state.meta.name}`,
       meta: [{ description: this.$store.state.meta.description }]
     };
   },
